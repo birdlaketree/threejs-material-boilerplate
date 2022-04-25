@@ -25,13 +25,13 @@ const createLights = scene => {
   point1.add(point1marker);
 
   const point2 = new PointLight( 0xdddddd, 2, 40 );
-  point2.position.set( -5, 3, 5 );
+  point2.position.set( -5, 3, -5 );
   scene.add(point2);
   const point2marker = sphere(pointMaterial, 0.1);
   point2.add(point2marker);
 
   const point3 = new PointLight( 0xdddddd, 2, 40 );
-  point3.position.set( 5, 3, -5 );
+  point3.position.set( 5, 3, 5 );
   scene.add(point3);
   const point3marker = sphere(pointMaterial, 0.1);
   point3.add(point3marker);

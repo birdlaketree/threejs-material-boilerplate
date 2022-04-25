@@ -59,8 +59,10 @@ class World {
     console.log('buildScene.1');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
+
+    // each material and its application is represented with a function
     
-    const nItems = 12;
+    const nItems = 8;
     const spreadWidth = 10;
     const hue = Math.random();
     // const hue = 0.6;
@@ -79,13 +81,14 @@ class World {
 
     const materialAPhysical = physicalMaterialA(color1, envmap);
     const materialBPhysical = physicalMaterialB(color2, envmap);
+    const materialCPhysical = matteFrostedPlastics(color2, envmap);
 
     for (let i = 0; i < nItems; i++) {
       const hcp = {x: Math.random() * spreadWidth - spreadWidth/2, y:3, z:Math.random() * spreadWidth - spreadWidth/2};
       const cubeItem = cube(materialAPhysical, 0.5, 1, 0.5);
       cubeItem.castShadow = true;
       cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.position.y = 2;
+      cubeItem.position.y = Math.random() + 2;
       cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
       cubeItem.rotation.x = Math.random();
       cubeItem.rotation.y = Math.random();
@@ -97,13 +100,22 @@ class World {
     const sphereMaterial = physicalMaterialShinyMetal(0xffffff, envmap);
 
     for (let i = 0; i < nItems; i++) {
-      const sphereItem = sphere(sphereMaterial, Math.random()/4 + 0.2);
+      const sphereItem = sphere(materialBPhysical, Math.random()/4 + 0.2);
       sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      sphereItem.position.y = 2;
+      sphereItem.position.y = Math.random() + 2;
       sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
       this.scene.add(sphereItem); 
       this.physics.add.existing(sphereItem);
-    }    
+    } 
+    
+    for (let i = 0; i < nItems; i++) {
+      const sphereItem = sphere(materialCPhysical, Math.random()/4 + 0.2);
+      sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      sphereItem.position.y = Math.random() + 2;
+      sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      this.scene.add(sphereItem); 
+      this.physics.add.existing(sphereItem);
+    } 
   }
 
   start() {
