@@ -1,5 +1,5 @@
 {
-  "name": "parcel-threejs-ammo-oculus-boilerplate",
+  "name": "threejs-material-boilerplate",
   "source": "src/index.html",
   "targets": {
     "default": {
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/birdlaketree/parcel-threejs-ammo-oculus-boilerplate.git"
+    "url": "git+https://github.com/birdlaketree/threejs-material-boilerplate.git"
   },
   "keywords": [
     "javascript",
@@ -30,9 +30,9 @@
   "author": "vedran.kolac@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/birdlaketree/parcel-threejs-ammo-oculus-boilerplate/issues"
+    "url": "https://github.com/birdlaketree/threejs-material-boilerplate/issues"
   },
-  "homepage": "https://birdlaketree.github.io/parcel-threejs-ammo-oculus-boilerplate/",
+  "homepage": "https://birdlaketree.github.io/threejs-material-boilerplate/",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.3.2",
     "parcel": "^2.3.2"

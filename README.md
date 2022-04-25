@@ -1,5 +1,5 @@
-## parcel-threejs-ammo-oculus-boilerplate
-Boilerplate for a fast start with three.js and ammo physics engine on Oculus Quest 2 VR headset.
+## threejs-material-boilerplate
+Boilerplate for a fast start with three.js materials in ammo physics engine on Oculus Quest 2 VR headset.
 - only tested on Oculus Quest 2
 - movement is controlled with joystick
 
@@ -21,7 +21,7 @@ npm run copy-assets-to-build
 ````
 
 #### GitHub Page
-https://birdlaketree.github.io/parcel-threejs-ammo-oculus-boilerplate/
+https://birdlaketree.github.io/threejs-material-boilerplate/
 
 ### How to deploy for github pages
 ```bash
