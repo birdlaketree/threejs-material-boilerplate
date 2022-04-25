@@ -46,10 +46,10 @@ const hingeComposition = (
   const heightDepthMax = 0.2;
   const heightDepthMin = 0.05;
 
-  // const baseWidth = Math.random() * widthMax + widthMin;
-  // const baseHeightDepth = Math.random() * heightDepthMax + heightDepthMin;
-  const baseWidth = 0.5;
-  const baseHeightDepth = 0.5;
+  const baseWidth = Math.random() * widthMax + widthMin;
+  const baseHeightDepth = Math.random() * heightDepthMax + heightDepthMin;
+  // const baseWidth = 0.18;
+  // const baseHeightDepth = 0.18;
 
   const base = cube(materialAPhysical, baseWidth, baseHeightDepth, baseHeightDepth);
   base.castShadow = true;
@@ -61,10 +61,10 @@ const hingeComposition = (
   base.rotation.z = Math.random();
   scene.add(base);
 
-  // const bodyAWidth = Math.random() * widthMax + widthMin;
-  // const bodyHeightDepth = Math.random() * heightDepthMax + heightDepthMin;
-  const bodyAWidth = 1;
-  const bodyHeightDepth = 0.1;
+  const bodyAWidth = Math.random() * widthMax + widthMin;
+  const bodyHeightDepth = Math.random() * heightDepthMax + heightDepthMin;
+  // const bodyAWidth = 1.1;
+  // const bodyHeightDepth = 0.04;
 
   const handleA = tickedGroup();
   handleA.position.x = baseX -baseWidth/2 + baseHeightDepth/2;

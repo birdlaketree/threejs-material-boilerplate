@@ -8,10 +8,17 @@ import { createFloor } from './components/meshes/floor.js';
 import { VrControls } from './system/VrControls.js';
 import { hingeComposition } from './components/bodies/hingeComposition.js';
 import { sphere } from './components/meshes/sphere.js';
+import { cube } from "./components/meshes/cube";
 import { physicalMaterialShinyMetal} from './components/materials/physicalMaterial.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { AmmoPhysics, PhysicsLoader } from '@enable3d/ammo-physics';
 import { PMREMGenerator } from 'three';
+import { 
+  physicalMaterialA,
+  physicalMaterialB,
+  matteFrostedPlastics
+ } from './components/materials/physicalMaterial';
+ import { Color } from "three";
 
 const hdrURL = new URL('/assets/textures/hdr/old_quarry_gerlingen_2k.hdr', import.meta.url);
 
@@ -36,7 +43,7 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.4');
+    console.log('ammoStart.1');
 
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
@@ -49,7 +56,7 @@ class World {
   }
 
   buildScene(hdrmap) {
-    console.log('buildScene.4');
+    console.log('buildScene.1');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
     
@@ -58,14 +65,45 @@ class World {
     const hue = Math.random();
     // const hue = 0.6;
 
+    const hueShift = hue + Math.random() * 0.2 - 0.1;
+    const s1 = 1;
+    const l1 = Math.random()/2;
+    const s2 = 1;
+    const l2 = Math.random()/2 + 0.5;
+
+    const color1 = new Color();
+    color1.setHSL(hueShift, s1, l1);
+
+    const color2 = new Color();
+    color2.setHSL(hueShift, s2, l2);
+
+    const materialAPhysical = physicalMaterialA(color1, envmap);
+    const materialBPhysical = physicalMaterialB(color2, envmap);
+
     for (let i = 0; i < nItems; i++) {
       const hcp = {x: Math.random() * spreadWidth - spreadWidth/2, y:3, z:Math.random() * spreadWidth - spreadWidth/2};
-      const hc = hingeComposition(hcp, hue, this.scene, this.loop, this.physics, envmap);
+      const cubeItem = cube(materialAPhysical, 0.5, 1, 0.5);
+      cubeItem.castShadow = true;
+      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.position.y = 2;
+      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.rotation.x = Math.random();
+      cubeItem.rotation.y = Math.random();
+      cubeItem.rotation.z = Math.random();
+      this.scene.add(cubeItem);
+      this.physics.add.existing(cubeItem);
     }
 
-    // const sphereMaterial = physicalMaterialShinyMetal(0xffffff, envmap);
-    // const s = sphere(sphereMaterial, 1);
-    // this.scene.add(s); 
+    const sphereMaterial = physicalMaterialShinyMetal(0xffffff, envmap);
+
+    for (let i = 0; i < nItems; i++) {
+      const sphereItem = sphere(sphereMaterial, Math.random()/4 + 0.2);
+      sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      sphereItem.position.y = 2;
+      sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      this.scene.add(sphereItem); 
+      this.physics.add.existing(sphereItem);
+    }    
   }
 
   start() {
