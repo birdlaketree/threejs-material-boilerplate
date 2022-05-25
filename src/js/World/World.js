@@ -18,6 +18,7 @@ import { defaultColor } from "./components/materials/defaultColor.js";
 import { defaultColorWithNoise } from "./components/materials/defaultColorWithNoise.js";
 import { frostedPlastic } from "./components/materials/frostedPlastic.js";
 import { steelWithSchratches } from "./components/materials/steelWithScratches.js";
+import { superDotsGum } from "./components/materials/superDotsGum.js";
 
 const hdrURL = new URL('/assets/copyrighted/hdr/studio_small_08_2k.hdr', import.meta.url);
 
@@ -186,6 +187,26 @@ class World {
       this.scene.add(cubeItem);
       this.physics.add.existing(cubeItem);
     }
+
+    const superDotsGumMaterial = superDotsGum(
+      createColor(0, 1, 1),
+      envmap
+    );
+
+    for (let i = 0; i < 8; i++) {
+      const cubeItem = cube(superDotsGumMaterial, 1, 1, 1);
+      cubeItem.castShadow = true;
+      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.position.y = Math.random() + 2;
+      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.rotation.x = Math.random();
+      cubeItem.rotation.y = Math.random();
+      cubeItem.rotation.z = Math.random();
+      this.scene.add(cubeItem);
+      this.physics.add.existing(cubeItem);
+    }
+
+    superDotsGum
 
   }
 
