@@ -2,10 +2,9 @@ import {
   MeshStandardMaterial
 } from 'three';
 
-const colorStandardMaterial = (color) => {
+const defaultColorMaterial = (color) => {
   const parameters = {
     color: color,
-    emissive: 0x000000,
     roughness: 0.8,
     metalness: 0.1,
   } 
@@ -14,5 +13,5 @@ const colorStandardMaterial = (color) => {
 }
 
 export {
-  colorStandardMaterial
+  defaultColorMaterial
 };

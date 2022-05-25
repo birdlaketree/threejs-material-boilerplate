@@ -1,12 +1,11 @@
+import { Color } from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { Loop } from './system/Loop.js';
 import { createRenderer } from './system/renderer.js';
 import { createScene } from './components/scene.js';
 import { createCamera, createDolly } from './components/camera.js';
 import { createLights } from './components/lights.js';
-import { createFloor } from './components/meshes/floor.js';
 import { VrControls } from './system/VrControls.js';
-import { hingeComposition } from './components/bodies/hingeComposition.js';
 import { sphere } from './components/meshes/sphere.js';
 import { cube } from "./components/meshes/cube";
 import { physicalMaterialShinyMetal} from './components/materials/physicalMaterial.js'
@@ -18,7 +17,6 @@ import {
   physicalMaterialB,
   matteFrostedPlastics
  } from './components/materials/physicalMaterial';
- import { Color } from "three";
  import { roomComposition } from './components/compositions/roomComposition.js';
  import { createWalls } from './components/meshes/walls.js'
 
@@ -44,7 +42,7 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.a4');
+    console.log('ammoStart.a5');
 
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
@@ -54,7 +52,7 @@ class World {
   }
 
   buildScene(hdrmap) {
-    console.log('buildScene.b4');
+    console.log('buildScene.b5');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
 

@@ -23,7 +23,7 @@ const createWalls = (scene, size = 20, envmap = null) => {
     map: mapTexture,
     aoMap: aoTexture,
     normalMap: normalTexture,
-    normalScale: new Vector2(3.0, 3.0),
+    normalScale: new Vector2(1.0, 1.0),
     roughnessMap: roughnessTexture
   } 
 
