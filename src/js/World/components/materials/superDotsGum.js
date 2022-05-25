@@ -10,10 +10,11 @@ const roughnessMapUrl    = new URL('/assets/copyrighted/textures/Super_Dots_Gum/
 const displacementMapUrl    = new URL('/assets/copyrighted/textures/Super_Dots_Gum/Super_Dots_Gum_Displacement.jpeg', import.meta.url);
 
 const superDotsGum = (color, envmap) => {
-  const colorMap = textureHandler(colorMapUrl);
-  const normalMap = textureHandler(normalMapUrl);
-  const roughnessMap = textureHandler(roughnessMapUrl);
-  const displacementMap = textureHandler(displacementMapUrl);
+  const repeat = 1;
+  const colorMap = textureHandler(colorMapUrl, repeat);
+  const normalMap = textureHandler(normalMapUrl, repeat);
+  const roughnessMap = textureHandler(roughnessMapUrl, repeat);
+  const displacementMap = textureHandler(displacementMapUrl, repeat);
 
   const parameters = {
     envMap: envmap.texture,
