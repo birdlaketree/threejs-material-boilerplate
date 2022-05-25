@@ -19,8 +19,10 @@ import {
   matteFrostedPlastics
  } from './components/materials/physicalMaterial';
  import { Color } from "three";
+ import { roomComposition } from './components/compositions/roomComposition.js';
+ import { createWalls } from './components/meshes/walls.js'
 
-const hdrURL = new URL('/assets/textures/hdr/old_quarry_gerlingen_2k.hdr', import.meta.url);
+const hdrURL = new URL('/assets/textures/hdr/studio_small_08_2k.hdr', import.meta.url);
 
 class World {
   constructor() {
@@ -32,7 +34,6 @@ class World {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
     this.floorSize = 12;
-    this.floor = createFloor(this.scene, this.floorSize, this.floorSize);
 
     const dolly = createDolly(this.camera, this.scene);
     dolly.position.set(0, 0, 0);
@@ -43,22 +44,22 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.1');
+    console.log('ammoStart.a4');
 
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
-
-    const ground = this.physics.add.ground({ width: this.floorSize, height: this.floorSize, depth: 10, y:-5 });
-    ground.visible = false;
-
+    const room = roomComposition(this.physics, this.floorSize, false);
     new RGBELoader().load(hdrURL, (hdrmap) => this.buildScene(hdrmap));
   }
 
   buildScene(hdrmap) {
-    console.log('buildScene.1');
+    console.log('buildScene.b4');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
+
+    // this.floor = createFloor(this.scene, this.floorSize, this.floorSize);
+    this.walls = createWalls(this.scene, this.floorSize, envmap);
 
     // each material and its application is represented with a function
     
