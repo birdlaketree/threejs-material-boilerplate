@@ -15,6 +15,7 @@ import { PMREMGenerator } from 'three';
 import { roomComposition } from './components/compositions/roomComposition.js';
 import { createWalls } from './components/meshes/walls.js'
 import { defaultColor } from "./components/materials/defaultColor.js";
+import { defaultColorWithNoise } from "./components/materials/defaultColorWithNoise.js";
 import { frostedPlastic } from "./components/materials/frostedPlastic.js";
 
 const hdrURL = new URL('/assets/hdr/studio_small_08_2k.hdr', import.meta.url);
@@ -53,7 +54,7 @@ class World {
 
     // M1 - blue
 
-    const blueMaterial = defaultColor(
+    const blueMaterial = defaultColorWithNoise(
       createColor(0.6, 1, 0.5),
       envmap
     );
@@ -71,9 +72,9 @@ class World {
       this.physics.add.existing(cubeItem);
     }
 
-    // M2 - white
+    // white cubes
 
-    const whiteMaterial = defaultColor(
+    const whiteMaterial = defaultColorWithNoise(
       createColor(0, 1, 1),
       envmap
     );
@@ -91,9 +92,9 @@ class World {
       this.physics.add.existing(cubeItem);
     }
 
-    // M3 - black
+    // black cubes
 
-    const blackMaterial = defaultColor(
+    const blackMaterial = defaultColorWithNoise(
       createColor(0, 0, 0.06),
       envmap
     );
@@ -111,30 +112,50 @@ class World {
       this.physics.add.existing(cubeItem);
     }
 
-    // M4 - frosted
+    // frosted cubes
 
-    const frostedPlasticMaterial = frostedPlastic(
-      createColor(0.4, 1, 1),
-      envmap
-      );
+    // const frostedPlasticMaterial = frostedPlastic(
+    //   createColor(0.4, 1, 1),
+    //   envmap
+    //   );
 
-    for (let i = 0; i < 12; i++) {
-      const cubeItem = cube(frostedPlasticMaterial, 1, 1, 1);
-      cubeItem.castShadow = true;
-      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.position.y = Math.random() + 2;
-      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.rotation.x = Math.random();
-      cubeItem.rotation.y = Math.random();
-      cubeItem.rotation.z = Math.random();
-      this.scene.add(cubeItem);
-      this.physics.add.existing(cubeItem);
-    }
+    // for (let i = 0; i < 12; i++) {
+    //   const cubeItem = cube(frostedPlasticMaterial, 1, 1, 1);
+    //   cubeItem.castShadow = true;
+    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.position.y = Math.random() + 2;
+    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.rotation.x = Math.random();
+    //   cubeItem.rotation.y = Math.random();
+    //   cubeItem.rotation.z = Math.random();
+    //   this.scene.add(cubeItem);
+    //   this.physics.add.existing(cubeItem);
+    // }
 
-    // M5
+    // // frosted cubes
 
-    // const magentaMaterial = defaultColor(
-    //   createColor(0.4, 0.7, 0.4),
+    // const frostedPlasticColoredMaterial = frostedPlastic(
+    //   createColor(0.1, 0.8, 0.8),
+    //   envmap
+    //   );
+
+    // for (let i = 0; i < 12; i++) {
+    //   const cubeItem = cube(frostedPlasticColoredMaterial, 1, 1, 1);
+    //   cubeItem.castShadow = true;
+    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.position.y = Math.random() + 2;
+    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.rotation.x = Math.random();
+    //   cubeItem.rotation.y = Math.random();
+    //   cubeItem.rotation.z = Math.random();
+    //   this.scene.add(cubeItem);
+    //   this.physics.add.existing(cubeItem);
+    // }
+
+    // // frosted spheres
+
+    // const magentaMaterial = frostedPlastic(
+    //   createColor(0.4, 0, 0.8),
     //   envmap
     // );
 
