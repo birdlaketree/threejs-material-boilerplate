@@ -12,13 +12,16 @@ import { physicalMaterialShinyMetal} from './components/materials/physicalMateri
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { AmmoPhysics, PhysicsLoader } from '@enable3d/ammo-physics';
 import { PMREMGenerator } from 'three';
+import { roomComposition } from './components/compositions/roomComposition.js';
+import { createWalls } from './components/meshes/walls.js'
 import { 
   physicalMaterialA,
   physicalMaterialB,
   matteFrostedPlastics
  } from './components/materials/physicalMaterial';
- import { roomComposition } from './components/compositions/roomComposition.js';
- import { createWalls } from './components/meshes/walls.js'
+
+ import { defaultColor } from "./components/materials/defaultColor.js";
+ import { frostedPlastic } from "./components/materials/frostedPlastic.js";
 
 const hdrURL = new URL('/assets/textures/hdr/studio_small_08_2k.hdr', import.meta.url);
 
@@ -39,7 +42,7 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.a5');
+    console.log('ammoStart.a6');
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
@@ -52,33 +55,20 @@ class World {
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
     this.walls = createWalls(this.scene, this.floorSize, envmap);
-
-    // each material and its application is represented with a function
-    
-    const nItems = 8;
     const spreadWidth = 10;
-    const hue = Math.random();
-    // const hue = 0.6;
 
-    const hueShift = hue + Math.random() * 0.2 - 0.1;
+    // M1 - blue
+
+    const hue1 = 0.6;
     const s1 = 1;
-    const l1 = Math.random()/2;
-    const s2 = 1;
-    const l2 = Math.random()/2 + 0.5;
-
+    const l1 = 0.5;
     const color1 = new Color();
-    color1.setHSL(hueShift, s1, l1);
+    color1.setHSL(hue1, s1, l1);
 
-    const color2 = new Color();
-    color2.setHSL(hueShift, s2, l2);
+    const defaultColorMaterial1 = defaultColor(color1, envmap);
 
-    const materialAPhysical = physicalMaterialA(color1, envmap);
-    const materialBPhysical = physicalMaterialB(color2, envmap);
-    const materialCPhysical = matteFrostedPlastics(color2, envmap);
-
-    for (let i = 0; i < nItems; i++) {
-      const hcp = {x: Math.random() * spreadWidth - spreadWidth/2, y:3, z:Math.random() * spreadWidth - spreadWidth/2};
-      const cubeItem = cube(materialAPhysical, 0.5, 1, 0.5);
+    for (let i = 0; i < 8; i++) {
+      const cubeItem = cube(defaultColorMaterial1, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
       cubeItem.castShadow = true;
       cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
       cubeItem.position.y = Math.random() + 2;
@@ -90,25 +80,93 @@ class World {
       this.physics.add.existing(cubeItem);
     }
 
-    const sphereMaterial = physicalMaterialShinyMetal(0xffffff, envmap);
+    // M2 - white
 
-    for (let i = 0; i < nItems; i++) {
-      const sphereItem = sphere(materialBPhysical, Math.random()/4 + 0.2);
+    const hue2 = 0.6;
+    const s2 = 1;
+    const l2 = 1;
+    const color2 = new Color();
+    color2.setHSL(hue2, s2, l2);
+
+    const defaultColorMaterial2 = defaultColor(color2, envmap);
+
+    for (let i = 0; i < 8; i++) {
+      const cubeItem = cube(defaultColorMaterial2, 0.5, 1, 0.5);
+      cubeItem.castShadow = true;
+      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.position.y = Math.random() + 2;
+      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.rotation.x = Math.random();
+      cubeItem.rotation.y = Math.random();
+      cubeItem.rotation.z = Math.random();
+      this.scene.add(cubeItem);
+      this.physics.add.existing(cubeItem);
+    }
+
+    // M3 - black
+
+    const hue3 = 0;
+    const s3 = 0;
+    const l3 = 0.1;
+    const color3 = new Color();
+    color3.setHSL(hue3, s3, l3);
+
+    const defaultColorMaterial3 = defaultColor(color3, envmap);
+
+    for (let i = 0; i < 8; i++) {
+      const cubeItem = cube(defaultColorMaterial3, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
+      cubeItem.castShadow = true;
+      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.position.y = Math.random() + 2;
+      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.rotation.x = Math.random();
+      cubeItem.rotation.y = Math.random();
+      cubeItem.rotation.z = Math.random();
+      this.scene.add(cubeItem);
+      this.physics.add.existing(cubeItem);
+    }
+
+    // M4 - frosted
+
+    const hue4 = 0.6;
+    const s4 = 1;
+    const l4 = 1;
+    const color4 = new Color();
+    color4.setHSL(hue4, s4, l4);
+
+    const frostedPlasticMaterial = frostedPlastic(color4, envmap);
+
+    for (let i = 0; i < 12; i++) {
+      const cubeItem = cube(frostedPlasticMaterial, 1, 1, 0.5);
+      cubeItem.castShadow = true;
+      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.position.y = Math.random() + 2;
+      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.rotation.x = Math.random();
+      cubeItem.rotation.y = Math.random();
+      cubeItem.rotation.z = Math.random();
+      this.scene.add(cubeItem);
+      this.physics.add.existing(cubeItem);
+    }
+
+    // M5
+
+    const hue5 = 0.7;
+    const s5 = 1;
+    const l5 = 0.5;
+    const color5 = new Color();
+    color5.setHSL(hue5, s5, l5);
+
+    const defaultColorMaterial5 = defaultColor(color5, envmap);
+
+    for (let i = 0; i < 8; i++) {
+      const sphereItem = sphere(defaultColorMaterial5, Math.random()/4 + 0.2);
       sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
       sphereItem.position.y = Math.random() + 2;
       sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
       this.scene.add(sphereItem); 
       this.physics.add.existing(sphereItem);
-    } 
-    
-    for (let i = 0; i < nItems; i++) {
-      const sphereItem = sphere(materialCPhysical, Math.random()/4 + 0.2);
-      sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      sphereItem.position.y = Math.random() + 2;
-      sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-      this.scene.add(sphereItem); 
-      this.physics.add.existing(sphereItem);
-    } 
+    }
   }
 
   start() {

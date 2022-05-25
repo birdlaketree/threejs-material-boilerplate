@@ -2,16 +2,18 @@ import {
   MeshStandardMaterial
 } from 'three';
 
-const defaultColorMaterial = (color) => {
+const defaultColor = (color, envmap) => {
   const parameters = {
+    envMap: envmap.texture,
+    envMapIntensity: 1,
     color: color,
-    roughness: 0.8,
-    metalness: 0.1,
+    roughness: 1,
+    metalness: 0.4,
   } 
   const material = new MeshStandardMaterial(parameters);
   return material;
 }
 
 export {
-  defaultColorMaterial
+  defaultColor
 };
