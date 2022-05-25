@@ -19,7 +19,7 @@ import { defaultColorWithNoise } from "./components/materials/defaultColorWithNo
 import { frostedPlastic } from "./components/materials/frostedPlastic.js";
 import { steelWithSchratches } from "./components/materials/steelWithScratches.js";
 
-const hdrURL = new URL('/assets/hdr/studio_small_08_2k.hdr', import.meta.url);
+const hdrURL = new URL('/assets/copyrighted/hdr/studio_small_08_2k.hdr', import.meta.url);
 
 class World {
   constructor() {
@@ -38,7 +38,7 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.a9');
+    console.log('ammoStart.a10');
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
     this.loop.setPhysics(this.physics);

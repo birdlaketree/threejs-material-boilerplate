@@ -4,10 +4,10 @@ import {
 } from 'three';
 import { textureHandler } from '../../system/textureHandler';
 
-const normalTexture       = new URL('/assets/textures/Imperfections_rmpkcg0p_4K_surface_ms/rmpkcg0p_4K_Normal.jpg', import.meta.url);
-const roughnessTexture    = new URL('/assets/textures/Imperfections_rmpkcg0p_4K_surface_ms/rmpkcg0p_4K_Roughness.jpg', import.meta.url);
-const metalnessTexture    = new URL('/assets/textures/Imperfections_rmpkcg0p_4K_surface_ms/rmpkcg0p_4K_Metalness.jpg', import.meta.url);
-const aoTexture           = new URL('/assets/textures/Imperfections_rmpkcg0p_4K_surface_ms/rmpkcg0p_4K_ao.jpg', import.meta.url);
+const normalTexture       = new URL('/assets/copyrighted/textures/Imperfections_rmpkcg0p_4K_surface_ms/rmpkcg0p_4K_Normal.jpg', import.meta.url);
+const roughnessTexture    = new URL('/assets/copyrighted/textures/Imperfections_rmpkcg0p_4K_surface_ms/rmpkcg0p_4K_Roughness.jpg', import.meta.url);
+const metalnessTexture    = new URL('/assets/copyrighted/textures/Imperfections_rmpkcg0p_4K_surface_ms/rmpkcg0p_4K_Metalness.jpg', import.meta.url);
+const aoTexture           = new URL('/assets/copyrighted/textures/Imperfections_rmpkcg0p_4K_surface_ms/rmpkcg0p_4K_ao.jpg', import.meta.url);
 
 const steelWithSchratches = (color, envmap) => {
   const aoMap = textureHandler(aoTexture);

@@ -4,9 +4,9 @@ import {
 } from 'three';
 import { textureHandler } from '../../system/textureHandler';
 
-const colorTexture          = new URL('/assets/textures/noise/uniform-noise_color_3.png', import.meta.url);
-const normalTexture       = new URL('/assets/textures/noise/uniform-noise_normal_5.png', import.meta.url);
-const transmissionTexture          = new URL('/assets/textures/noise/uniform-noise_color_3.png', import.meta.url);
+const colorTexture        = new URL('/assets/public/textures/noise/uniform-noise_color_3.png', import.meta.url);
+const normalTexture       = new URL('/assets/public/textures/noise/uniform-noise_normal_5.png', import.meta.url);
+const transmissionTexture = new URL('/assets/public/textures/noise/uniform-noise_color_3.png', import.meta.url);
 
 const frostedPlastic = (color, envmap) => {
   const repeat = 1;
