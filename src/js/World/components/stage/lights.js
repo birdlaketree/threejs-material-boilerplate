@@ -1,6 +1,6 @@
 import { AmbientLight, DirectionalLight, PointLight } from 'three';
-import { sphere } from './meshes/sphere';
-import { defaultColorMaterial } from './materials/defaultColorMaterial.js';
+import { sphere } from '../meshes/sphere';
+import { defaultColorMaterial } from '../materials/defaultColorMaterial.js';
 
 const createLights = scene => {
   const pointMaterial = defaultColorMaterial(0x222222);

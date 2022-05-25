@@ -2,9 +2,9 @@ import { Color } from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { Loop } from './system/Loop.js';
 import { createRenderer } from './system/renderer.js';
-import { createScene } from './components/scene.js';
-import { createCamera, createDolly } from './components/camera.js';
-import { createLights } from './components/lights.js';
+import { createScene } from './components/stage/scene.js';
+import { createCamera, createDolly } from './components/stage/camera.js';
+import { createLights } from './components/stage/lights.js';
 import { VrControls } from './system/VrControls.js';
 import { sphere } from './components/meshes/sphere.js';
 import { cube } from "./components/meshes/cube";
@@ -30,20 +30,16 @@ class World {
     this.lights = createLights(this.scene);
     this.loop = new Loop(this.camera, this.scene, this.renderer);
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-
-    this.floorSize = 12;
-
     const dolly = createDolly(this.camera, this.scene);
     dolly.position.set(0, 0, 0);
     const vrControls = new VrControls(this.renderer, dolly, this.camera);
     this.loop.updatables.push(vrControls);
-
+    this.floorSize = 12;
     PhysicsLoader('static/ammo', () => this.ammoStart());
   }
 
   ammoStart() {
     console.log('ammoStart.a5');
-
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
@@ -55,8 +51,6 @@ class World {
     console.log('buildScene.b5');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
-
-    // this.floor = createFloor(this.scene, this.floorSize, this.floorSize);
     this.walls = createWalls(this.scene, this.floorSize, envmap);
 
     // each material and its application is represented with a function

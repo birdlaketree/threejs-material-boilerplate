@@ -1,7 +1,6 @@
 import { Scene, Color, Fog, PMREMGenerator } from 'three';
 // import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { RoomEnvironment } from './RoomEnv';
-
+import { RoomEnvironment } from '../stage/RoomEnv';
 
 const createScene = renderer => {
   const scene = new Scene();
