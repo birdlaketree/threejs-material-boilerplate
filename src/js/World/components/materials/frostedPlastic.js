@@ -4,15 +4,13 @@ import {
 } from 'three';
 import { textureHandler } from '../../system/textureHandler';
 
-const frostedPlastic_aoMapUrl           = new URL('/assets/textures/noise-roughness.png', import.meta.url);
-const frostedPlastic_normalMapUrl       = new URL('/assets/textures/noise-normal.png', import.meta.url);
-const frostedPlastic_roughnessMapUrl    = new URL('/assets/textures/noise-roughness.png', import.meta.url);
+const frostedPlastic_aoMapUrl           = new URL('/assets/textures/frosted-plastic/noise-roughness.png', import.meta.url);
+const frostedPlastic_normalMapUrl       = new URL('/assets/textures/frosted-plastic/noise-normal.png', import.meta.url);
+const frostedPlastic_roughnessMapUrl    = new URL('/assets/textures/frosted-plastic/noise-roughness.png', import.meta.url);
 
 const frostedPlastic = (color, envmap) => {
   const repeat = 1;
-  // const mapTexture = textureHandler(mapUrl, repeat);
   const aoTexture = textureHandler(frostedPlastic_aoMapUrl, repeat);
-  // const displacementTexture = textureHandler(displacementMapUrl, repeat);
   const normalMap = textureHandler(frostedPlastic_normalMapUrl, repeat);
   const clearcoatNormalMap = textureHandler(frostedPlastic_normalMapUrl, repeat);
   const roughnessTexture = textureHandler(frostedPlastic_roughnessMapUrl, repeat);
