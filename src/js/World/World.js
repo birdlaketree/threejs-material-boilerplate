@@ -8,22 +8,15 @@ import { createLights } from './components/stage/lights.js';
 import { VrControls } from './system/VrControls.js';
 import { sphere } from './components/meshes/sphere.js';
 import { cube } from "./components/meshes/cube";
-import { physicalMaterialShinyMetal} from './components/materials/physicalMaterial.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { AmmoPhysics, PhysicsLoader } from '@enable3d/ammo-physics';
 import { PMREMGenerator } from 'three';
 import { roomComposition } from './components/compositions/roomComposition.js';
 import { createWalls } from './components/meshes/walls.js'
-import { 
-  physicalMaterialA,
-  physicalMaterialB,
-  matteFrostedPlastics
- } from './components/materials/physicalMaterial';
+import { defaultColor } from "./components/materials/defaultColor.js";
+import { frostedPlastic } from "./components/materials/frostedPlastic.js";
 
- import { defaultColor } from "./components/materials/defaultColor.js";
- import { frostedPlastic } from "./components/materials/frostedPlastic.js";
-
-const hdrURL = new URL('/assets/textures/hdr/studio_small_08_2k.hdr', import.meta.url);
+const hdrURL = new URL('/assets/hdr/studio_small_08_2k.hdr', import.meta.url);
 
 class World {
   constructor() {
