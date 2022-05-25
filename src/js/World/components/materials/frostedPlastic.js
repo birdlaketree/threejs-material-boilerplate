@@ -4,52 +4,35 @@ import {
 } from 'three';
 import { textureHandler } from '../../system/textureHandler';
 
-const frostedPlastic_aoMapUrl           = new URL('/assets/textures/frosted-plastic/noise-roughness.png', import.meta.url);
-const frostedPlastic_normalMapUrl       = new URL('/assets/textures/frosted-plastic/noise-normal.png', import.meta.url);
-const frostedPlastic_roughnessMapUrl    = new URL('/assets/textures/frosted-plastic/noise-roughness.png', import.meta.url);
+const colorTexture          = new URL('/assets/textures/noise/uniform-noise_color_3.png', import.meta.url);
+const normalTexture       = new URL('/assets/textures/noise/uniform-noise_normal_5.png', import.meta.url);
+const transmissionTexture          = new URL('/assets/textures/noise/uniform-noise_color_3.png', import.meta.url);
 
 const frostedPlastic = (color, envmap) => {
   const repeat = 1;
-  const aoTexture = textureHandler(frostedPlastic_aoMapUrl, repeat);
-  const normalMap = textureHandler(frostedPlastic_normalMapUrl, repeat);
-  const clearcoatNormalMap = textureHandler(frostedPlastic_normalMapUrl, repeat);
-  const roughnessTexture = textureHandler(frostedPlastic_roughnessMapUrl, repeat);
+  const colorMap = textureHandler(colorTexture, repeat);
+  const normalMap = textureHandler(normalTexture, repeat);
+  const transmissionMap     = textureHandler(transmissionTexture, repeat);
 
   const parameters = {
     envMap: envmap.texture,
-    envMapIntensity: 0.8,
+    envMapIntensity: 1,
 
-    clearcoat: 0.1,
-    clearcoatRoughness: 0.8,
-		metalness: 0,
-    roughness: 0.1,
     color: color,
-    // color: 0xdddff,
-    // emissive: 0x000000,
-
-    transmission: 0.2,
+    map: colorMap,
+    
+    metalness: 0,
+    
+    transmissionMap: transmissionMap,
+    transmission: 0.9,
     reflectivity: 0,
-    ior: 2.1, // from 1.0 to 2.333
-    specularIntensity: 0.2,
-    // thickness: 0.0001,
-    thickness: 0.04,
 
-    sheen: 0,
-
-    // opacity: 0.90,
-		// transparent: false,
-
-    // map: roughnessTexture,
-    aoMap: aoTexture,
-    // displacementMap: displacementTexture,
-    // displacementScale: 1,
-    // displacementBias: -0.5,
-    // roughnessMap: roughnessTexture,
+    roughness: 0.8,
+    ior: 1.38, // from 1.0 to 2.333
+    thickness: 0.1,
 
     normalMap: normalMap,
-		normalScale: new Vector2(0.02, 0.02),
-		clearcoatNormalMap: clearcoatNormalMap,
-    // clearcoatNormalScale: new Vector2(0.4, 0.4)
+		normalScale: new Vector2(1, 1),
   }
   const material = new MeshPhysicalMaterial(parameters);
   return material;

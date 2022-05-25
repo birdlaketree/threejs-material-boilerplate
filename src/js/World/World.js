@@ -36,7 +36,7 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.a6');
+    console.log('ammoStart.a8');
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
@@ -114,12 +114,12 @@ class World {
     // M4 - frosted
 
     const frostedPlasticMaterial = frostedPlastic(
-      createColor(0.98, 1, 0.5),
+      createColor(0.4, 1, 1),
       envmap
       );
 
     for (let i = 0; i < 12; i++) {
-      const cubeItem = cube(frostedPlasticMaterial, 1, 1, 0.5);
+      const cubeItem = cube(frostedPlasticMaterial, 1, 1, 1);
       cubeItem.castShadow = true;
       cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
       cubeItem.position.y = Math.random() + 2;
@@ -133,19 +133,19 @@ class World {
 
     // M5
 
-    const magentaMaterial = defaultColor(
-      createColor(0.4, 0.7, 0.4),
-      envmap
-    );
+    // const magentaMaterial = defaultColor(
+    //   createColor(0.4, 0.7, 0.4),
+    //   envmap
+    // );
 
-    for (let i = 0; i < 8; i++) {
-      const sphereItem = sphere(magentaMaterial, Math.random()/4 + 0.2);
-      sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      sphereItem.position.y = Math.random() + 2;
-      sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-      this.scene.add(sphereItem); 
-      this.physics.add.existing(sphereItem);
-    }
+    // for (let i = 0; i < 8; i++) {
+    //   const sphereItem = sphere(magentaMaterial, Math.random()/4 + 0.2);
+    //   sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+    //   sphereItem.position.y = Math.random() + 2;
+    //   sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+    //   this.scene.add(sphereItem); 
+    //   this.physics.add.existing(sphereItem);
+    // }
   }
 
   start() {
