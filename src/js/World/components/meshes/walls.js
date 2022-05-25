@@ -1,34 +1,8 @@
 import {Math, PlaneGeometry, MeshStandardMaterial, Mesh, DoubleSide, Vector2 } from 'three';
-import { textureHandler } from '../../system/textureHandler';
-
-const mapUrl             = new URL('/assets/textures/Concrete_Dirty_ue4idgdlw_4K_surface_ms/ue4idgdlw_4K_Albedo.jpg', import.meta.url);
-const aoMapUrl           = new URL('/assets/textures/Concrete_Dirty_ue4idgdlw_4K_surface_ms/ue4idgdlw_4K_AO.jpg', import.meta.url);
-const normalMapUrl       = new URL('/assets/textures/Concrete_Dirty_ue4idgdlw_4K_surface_ms/ue4idgdlw_4K_Normal.jpg', import.meta.url);
-const roughnessMapUrl    = new URL('/assets/textures/Concrete_Dirty_ue4idgdlw_4K_surface_ms/ue4idgdlw_4K_Roughness.jpg', import.meta.url);
+import { dirtyConcrete } from '../materials/dirtyConcrete';
 
 const createWalls = (scene, size = 20, envmap = null) => {
-  const repeat = 4;
-  const mapTexture = textureHandler(mapUrl, repeat);
-  const aoTexture = textureHandler(aoMapUrl, repeat);
-  const normalTexture = textureHandler(normalMapUrl, repeat);
-  const roughnessTexture = textureHandler(roughnessMapUrl, repeat);
-
-  const parameters = {
-    envMap: envmap.texture,
-    envMapIntensity: 1,
-    // color: 0x3333ff,
-    // side: DoubleSide,
-    // roughness: 0.8,
-    // metalness: 0,
-    map: mapTexture,
-    aoMap: aoTexture,
-    normalMap: normalTexture,
-    normalScale: new Vector2(1.0, 1.0),
-    roughnessMap: roughnessTexture
-  } 
-
-  const material = new MeshStandardMaterial(parameters);
-
+  const material = dirtyConcrete(0x3333ff, envmap);
   const geometry = new PlaneGeometry(size, size, 4, 4);
   geometry.attributes.uv2 = geometry.attributes.uv; // second uv is needed for aoMap
 
