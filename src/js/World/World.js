@@ -61,15 +61,18 @@ class World {
 
     // right hand physics controller
     const handleMaterial = defaultColorMattPlastic(
-      createColor(0, 0, 0.02),
+      createColor(0, 1, 1),
       envmap
     );
 
     const handDistance = 0;
 
     const rightHandController = new Group();
+    // const rightHandAnchor = sphere(handleMaterial, 0.04);
+    // rightHandAnchor.position.z = 0;
+    // rightHandAnchor.visible = false;
+    // rightHandController.add(rightHandAnchor);
     const rightHandAsset = sphere(handleMaterial, 0.04);
-    // rightHandAsset.position.z = -0.08;
     rightHandAsset.position.z = handDistance;
     rightHandAsset.castShadow = true;
     rightHandController.add(rightHandAsset);
@@ -83,7 +86,6 @@ class World {
 
     const leftHandController = new Group();
     const leftHandAsset = sphere(handleMaterial, 0.04);
-    // leftHandAsset.position.z = -0.08;
     leftHandAsset.position.z = handDistance;
     leftHandAsset.castShadow = true;
     leftHandController.add(leftHandAsset);
@@ -109,48 +111,50 @@ class World {
       sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
       this.scene.add(sphereItem); 
       this.physics.add.existing(sphereItem);
-      sphereItem.body.setBounciness(0.9);
+      sphereItem.body.setBounciness(1);
     }
 
     // white cubes
 
-    // const whiteMaterial = defaultColorWithNoise(
-    //   createColor(0, 1, 1),
-    //   envmap
-    // );
+    const whiteMaterial = defaultColorWithNoise(
+      createColor(0, 1, 1),
+      envmap
+    );
 
-    // for (let i = 0; i < 4; i++) {
-    //   const cubeItem = cube(whiteMaterial, 1, 1, 0.9);
-    //   cubeItem.castShadow = true;
-    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-    //   cubeItem.position.y = Math.random() + 2;
-    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-    //   cubeItem.rotation.x = Math.random();
-    //   cubeItem.rotation.y = Math.random();
-    //   cubeItem.rotation.z = Math.random();
-    //   this.scene.add(cubeItem);
-    //   this.physics.add.existing(cubeItem);
-    // }
+    for (let i = 0; i < 4; i++) {
+      const cubeItem = cube(whiteMaterial, Math.random() * 1 + 0.2, Math.random() * 1.6 + 0.2, Math.random() * 1 + 0.2);
+      cubeItem.castShadow = true;
+      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.position.y = Math.random() + 2;
+      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.rotation.x = Math.random();
+      cubeItem.rotation.y = Math.random();
+      cubeItem.rotation.z = Math.random();
+      this.scene.add(cubeItem);
+      this.physics.add.existing(cubeItem);
+      cubeItem.body.setBounciness(0.96);
+    }
 
     // black cubes
 
-    // const blackMaterial = defaultColorWithNoise(
-    //   createColor(0, 0, 0.06),
-    //   envmap
-    // );
+    const blackMaterial = defaultColorWithNoise(
+      createColor(0, 0, 0.06),
+      envmap
+    );
 
-    // for (let i = 0; i < 4; i++) {
-    //   const cubeItem = cube(blackMaterial, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
-    //   cubeItem.castShadow = true;
-    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-    //   cubeItem.position.y = Math.random() + 2;
-    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-    //   cubeItem.rotation.x = Math.random();
-    //   cubeItem.rotation.y = Math.random();
-    //   cubeItem.rotation.z = Math.random();
-    //   this.scene.add(cubeItem);
-    //   this.physics.add.existing(cubeItem);
-    // }
+    for (let i = 0; i < 4; i++) {
+      const cubeItem = cube(blackMaterial, Math.random() * 1 + 0.2, Math.random() * 1.6 + 0.2, Math.random() * 1 + 0.2);
+      cubeItem.castShadow = true;
+      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.position.y = Math.random() + 2;
+      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.rotation.x = Math.random();
+      cubeItem.rotation.y = Math.random();
+      cubeItem.rotation.z = Math.random();
+      this.scene.add(cubeItem);
+      this.physics.add.existing(cubeItem);
+      cubeItem.body.setBounciness(0.96);
+    }
 
     // // blue cubes
 
