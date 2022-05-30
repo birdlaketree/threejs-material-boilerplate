@@ -14,11 +14,13 @@ import {
   MeshBasicMaterial,
   Mesh,
   Vector3,
-  Math
+  Group
 } from 'three';
 
 class VrControls {
   constructor (renderer, dolly, camera) {
+    this.leftHandAssets = [];
+    this.rightHandAssets = [];
     this.renderer = renderer;
     this.dolly = dolly;
     this.camera = camera;
@@ -75,6 +77,14 @@ class VrControls {
     this.userData.isSelecting = false;
   }
 
+  addAssetToLeftHand(asset) {
+    this.leftHandAssets.push(asset);
+  }
+
+  addAssetToRightHand(asset) {
+    this.rightHandAssets.push(asset);
+  }
+
   tick(delta) {
     this.handleController(delta);
   }
@@ -86,6 +96,9 @@ class VrControls {
       let velocityTranslation = 0.05;
       let velocityRotation = 0.4;
 
+      console.log('this.leftHandAssets', this.leftHandAssets);
+      console.log('this.rightHandAssets', this.leftHandAssets);
+
       for (const source of session.inputSources) {
         if (source && source.gamepad && source.handedness) {
           if (source.handedness == 'left') {
@@ -96,6 +109,33 @@ class VrControls {
             // left-right -> pan left or right
             // this.dolly.position.x -= this.cameraVector.z * velocityTranslation * source.gamepad.axes[2];
             // this.dolly.position.z += this.cameraVector.x * velocityTranslation * source.gamepad.axes[2];
+            
+            if (source.gamepad.buttons[0].pressed) {
+              if (this.leftHandAssets.length > 0) {
+                for (let i = 0; i < this.leftHandAssets.length; i++) {
+                  const element = this.leftHandAssets[i];
+                  element.body.setCollisionFlags(2);
+                  element.visible = true;
+                  element.position.x = this.dolly.position.x + this.controller1.position.x;
+                  element.position.y = this.dolly.position.y + this.controller1.position.y;
+                  element.position.z = this.dolly.position.z + this.controller1.position.z;
+                  element.rotation.x = this.controller1.rotation.x;
+                  element.rotation.y = this.controller1.rotation.y;
+                  element.rotation.z = this.controller1.rotation.z;
+                  element.body.needUpdate = true;
+                }
+              }
+            } else {
+              if (this.leftHandAssets.length > 0) {
+                for (let i = 0; i < this.leftHandAssets.length; i++) {
+                  const element = this.leftHandAssets[i];
+                  element.body.setCollisionFlags(4);
+                  element.visible = false;
+                  element.body.needUpdate = false;
+                }
+              }
+            }
+            
           } 
           if (source.handedness == 'right') {
             // up-down -> move forward or backward
@@ -108,12 +148,37 @@ class VrControls {
             
             // left-right alternative -> rotate on Y axis
             // this.dolly.rotateY(-Math.degToRad(velocityRotation * source.gamepad.axes[2]));
+
+            if (source.gamepad.buttons[0].pressed) {
+              if (this.rightHandAssets.length > 0) {
+                for (let i = 0; i < this.rightHandAssets.length; i++) {
+                  const element = this.rightHandAssets[i];
+                  element.body.setCollisionFlags(2);
+                  element.visible = true;
+                  element.position.x = this.dolly.position.x + this.controller2.position.x;
+                  element.position.y = this.dolly.position.y + this.controller2.position.y;
+                  element.position.z = this.dolly.position.z + this.controller2.position.z;
+                  element.rotation.x = this.controller2.rotation.x;
+                  element.rotation.y = this.controller2.rotation.y;
+                  element.rotation.z = this.controller2.rotation.z;
+                  element.body.needUpdate = true;
+                }
+              }
+            } else {
+              if (this.rightHandAssets.length > 0) {
+                for (let i = 0; i < this.rightHandAssets.length; i++) {
+                  const element = this.rightHandAssets[i];
+                  element.body.setCollisionFlags(4);
+                  element.visible = false;
+                  element.body.needUpdate = false;
+                }
+              }
+            }
           }
         }
       }
-
-      
     }
+
     // if ( controller.userData.isSelecting ) {
     //   // here goes the code for isSelectiong event
     // }

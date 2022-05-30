@@ -1,4 +1,4 @@
-import { Color } from "three";
+import { Color, Group } from "three";
 import { createColor } from "./utils/createColor.js";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { Loop } from './system/Loop.js';
@@ -15,7 +15,8 @@ import { PMREMGenerator } from 'three';
 import { roomComposition } from './components/compositions/roomComposition.js';
 import { createWalls } from './components/meshes/walls.js'
 
-import { defaultColor } from "./components/materials/defaultColor.js";
+import { defaultColorMattPlastic } from "./components/materials/defaultColorMattPlastic.js";
+import { defaultColorShinyPlastic } from "./components/materials/defaultColorShinyPlastic.js";
 import { defaultColorWithNoise } from "./components/materials/defaultColorWithNoise.js";
 
 // import { bentPlane } from "./components/materials/bentPlane.js";
@@ -36,14 +37,14 @@ class World {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     const dolly = createDolly(this.camera, this.scene);
     dolly.position.set(0, 0, 0);
-    const vrControls = new VrControls(this.renderer, dolly, this.camera);
-    this.loop.updatables.push(vrControls);
+    this.vrControls = new VrControls(this.renderer, dolly, this.camera);
+    this.loop.updatables.push(this.vrControls);
     this.floorSize = 12;
     PhysicsLoader('static/ammo', () => this.ammoStart());
   }
 
   ammoStart() {
-    console.log('ammoStart.a13');
+    console.log('ammoStart.a16');
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
@@ -52,16 +53,52 @@ class World {
   }
 
   buildScene(hdrmap) {
-    console.log('buildScene.b13');
+    console.log('buildScene.b20');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
     this.walls = createWalls(this.scene, this.floorSize, envmap);
     const spreadWidth = 10;
 
+    // right hand physics controller
+    const handleMaterial = defaultColorMattPlastic(
+      createColor(0, 0, 0.02),
+      envmap
+    );
+
+    const handDistance = 0;
+
+    const rightHandController = new Group();
+    const rightHandAsset = sphere(handleMaterial, 0.04);
+    // rightHandAsset.position.z = -0.08;
+    rightHandAsset.position.z = handDistance;
+    rightHandAsset.castShadow = true;
+    rightHandController.add(rightHandAsset);
+
+    this.scene.add(rightHandController);
+    this.physics.add.existing(rightHandController);
+    rightHandController.visible = false;
+    rightHandController.body.setCollisionFlags(1);
+    rightHandController.body.setBounciness(0.9);
+    this.vrControls.addAssetToRightHand(rightHandController);
+
+    const leftHandController = new Group();
+    const leftHandAsset = sphere(handleMaterial, 0.04);
+    // leftHandAsset.position.z = -0.08;
+    leftHandAsset.position.z = handDistance;
+    leftHandAsset.castShadow = true;
+    leftHandController.add(leftHandAsset);
+
+    this.scene.add(leftHandController);
+    this.physics.add.existing(leftHandController);
+    leftHandController.visible = false;
+    leftHandController.body.setCollisionFlags(1);
+    leftHandController.body.setBounciness(0.9);
+    this.vrControls.addAssetToLeftHand(leftHandController);
+
     // spheres
 
-    const colorMaterial = defaultColor(
-      createColor(0.05, 1, 0.5),
+    const colorMaterial = defaultColorShinyPlastic(
+      createColor(0.02, 1, 0.5),
       envmap
     );
 
@@ -72,6 +109,7 @@ class World {
       sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
       this.scene.add(sphereItem); 
       this.physics.add.existing(sphereItem);
+      sphereItem.body.setBounciness(0.9);
     }
 
     // white cubes
@@ -114,25 +152,25 @@ class World {
     //   this.physics.add.existing(cubeItem);
     // }
 
-    // blue cubes
+    // // blue cubes
 
-    const blueMaterial = defaultColorWithNoise(
-      createColor(0.6, 1, 0.5),
-      envmap
-    );
+    // const blueMaterial = defaultColorWithNoise(
+    //   createColor(0.6, 1, 0.5),
+    //   envmap
+    // );
 
-    for (let i = 0; i < 4; i++) {
-      const cubeItem = cube(blueMaterial, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
-      cubeItem.castShadow = true;
-      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.position.y = Math.random() + 2;
-      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.rotation.x = Math.random();
-      cubeItem.rotation.y = Math.random();
-      cubeItem.rotation.z = Math.random();
-      this.scene.add(cubeItem);
-      this.physics.add.existing(cubeItem);
-    }
+    // for (let i = 0; i < 4; i++) {
+    //   const cubeItem = cube(blueMaterial, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
+    //   cubeItem.castShadow = true;
+    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.position.y = Math.random() + 2;
+    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.rotation.x = Math.random();
+    //   cubeItem.rotation.y = Math.random();
+    //   cubeItem.rotation.z = Math.random();
+    //   this.scene.add(cubeItem);
+    //   this.physics.add.existing(cubeItem);
+    // }
 
     // frosted cubes
 
