@@ -16,14 +16,15 @@ import { roomComposition } from './components/compositions/roomComposition.js';
 import { createWalls } from './components/meshes/walls.js'
 
 import { defaultColor } from "./components/materials/defaultColor.js";
-import { bentPlane } from "./components/materials/bentPlane.js";
 import { defaultColorWithNoise } from "./components/materials/defaultColorWithNoise.js";
-import { frostedPlastic } from "./components/materials/frostedPlastic.js";
-import { steelWithSchratches } from "./components/materials/steelWithScratches.js";
-import { superDotsGum } from "./components/materials/superDotsGum.js";
-import { checkerPatternGreen } from "./components/materials/checkerPatternGreen.js";
 
-const hdrURL = new URL('/assets/copyrighted/hdr/studio_small_08_2k.hdr', import.meta.url);
+// import { bentPlane } from "./components/materials/bentPlane.js";
+// import { frostedPlastic } from "./components/materials/frostedPlastic.js";
+// import { steelWithSchratches } from "./components/materials/steelWithScratches.js";
+// import { superDotsGum } from "./components/materials/superDotsGum.js";
+// import { checkerPatternGreen } from "./components/materials/checkerPatternGreen.js";
+
+const hdrURL = new URL('/assets/copyrighted/hdr/studio_small_08_1k.hdr', import.meta.url);
 
 class World {
   constructor() {
@@ -42,7 +43,7 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.a12');
+    console.log('ammoStart.a13');
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
@@ -51,51 +52,67 @@ class World {
   }
 
   buildScene(hdrmap) {
-    console.log('buildScene.b9');
+    console.log('buildScene.b13');
     const envmaploader = new PMREMGenerator(this.renderer);
     const envmap = envmaploader.fromCubemap(hdrmap);
     this.walls = createWalls(this.scene, this.floorSize, envmap);
     const spreadWidth = 10;
 
-    // white cubes
+    // spheres
 
-    const whiteMaterial = bentPlane(
-      createColor(0, 1, 0),
+    const colorMaterial = defaultColor(
+      createColor(0.05, 1, 0.5),
       envmap
     );
 
     for (let i = 0; i < 8; i++) {
-      const cubeItem = cube(whiteMaterial, 1, 1, 0.9);
-      cubeItem.castShadow = true;
-      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.position.y = Math.random() + 2;
-      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.rotation.x = Math.random();
-      cubeItem.rotation.y = Math.random();
-      cubeItem.rotation.z = Math.random();
-      this.scene.add(cubeItem);
-      this.physics.add.existing(cubeItem);
+      const sphereItem = sphere(colorMaterial, Math.random()/4 + 0.2);
+      sphereItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      sphereItem.position.y = Math.random() + 2;
+      sphereItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      this.scene.add(sphereItem); 
+      this.physics.add.existing(sphereItem);
     }
+
+    // white cubes
+
+    // const whiteMaterial = defaultColorWithNoise(
+    //   createColor(0, 1, 1),
+    //   envmap
+    // );
+
+    // for (let i = 0; i < 4; i++) {
+    //   const cubeItem = cube(whiteMaterial, 1, 1, 0.9);
+    //   cubeItem.castShadow = true;
+    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.position.y = Math.random() + 2;
+    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.rotation.x = Math.random();
+    //   cubeItem.rotation.y = Math.random();
+    //   cubeItem.rotation.z = Math.random();
+    //   this.scene.add(cubeItem);
+    //   this.physics.add.existing(cubeItem);
+    // }
 
     // black cubes
 
-    const blackMaterial = defaultColorWithNoise(
-      createColor(0, 0, 0.06),
-      envmap
-    );
+    // const blackMaterial = defaultColorWithNoise(
+    //   createColor(0, 0, 0.06),
+    //   envmap
+    // );
 
-    for (let i = 0; i < 8; i++) {
-      const cubeItem = cube(blackMaterial, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
-      cubeItem.castShadow = true;
-      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.position.y = Math.random() + 2;
-      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.rotation.x = Math.random();
-      cubeItem.rotation.y = Math.random();
-      cubeItem.rotation.z = Math.random();
-      this.scene.add(cubeItem);
-      this.physics.add.existing(cubeItem);
-    }
+    // for (let i = 0; i < 4; i++) {
+    //   const cubeItem = cube(blackMaterial, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
+    //   cubeItem.castShadow = true;
+    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.position.y = Math.random() + 2;
+    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.rotation.x = Math.random();
+    //   cubeItem.rotation.y = Math.random();
+    //   cubeItem.rotation.z = Math.random();
+    //   this.scene.add(cubeItem);
+    //   this.physics.add.existing(cubeItem);
+    // }
 
     // blue cubes
 
@@ -104,7 +121,7 @@ class World {
       envmap
     );
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 4; i++) {
       const cubeItem = cube(blueMaterial, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
       cubeItem.castShadow = true;
       cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
@@ -173,41 +190,41 @@ class World {
     //   this.physics.add.existing(sphereItem);
     // }
 
-    const steelMaterial = steelWithSchratches(
-      createColor(0, 1, 1),
-      envmap
-    );
+    // const steelMaterial = steelWithSchratches(
+    //   createColor(0, 1, 1),
+    //   envmap
+    // );
 
-    for (let i = 0; i < 8; i++) {
-      const cubeItem = cube(steelMaterial, 0.5, 1, 0.5);
-      cubeItem.castShadow = true;
-      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.position.y = Math.random() + 2;
-      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.rotation.x = Math.random();
-      cubeItem.rotation.y = Math.random();
-      cubeItem.rotation.z = Math.random();
-      this.scene.add(cubeItem);
-      this.physics.add.existing(cubeItem);
-    }
+    // for (let i = 0; i < 8; i++) {
+    //   const cubeItem = cube(steelMaterial, 0.5, 1, 0.5);
+    //   cubeItem.castShadow = true;
+    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.position.y = Math.random() + 2;
+    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.rotation.x = Math.random();
+    //   cubeItem.rotation.y = Math.random();
+    //   cubeItem.rotation.z = Math.random();
+    //   this.scene.add(cubeItem);
+    //   this.physics.add.existing(cubeItem);
+    // }
 
-    const superDotsGumMaterial = superDotsGum(
-      createColor(0, 1, 1),
-      envmap
-    );
+    // const superDotsGumMaterial = superDotsGum(
+    //   createColor(0, 1, 1),
+    //   envmap
+    // );
 
-    for (let i = 0; i < 8; i++) {
-      const cubeItem = cube(superDotsGumMaterial, 1, 1, 1);
-      cubeItem.castShadow = true;
-      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.position.y = Math.random() + 2;
-      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-      cubeItem.rotation.x = Math.random();
-      cubeItem.rotation.y = Math.random();
-      cubeItem.rotation.z = Math.random();
-      this.scene.add(cubeItem);
-      this.physics.add.existing(cubeItem);
-    }
+    // for (let i = 0; i < 8; i++) {
+    //   const cubeItem = cube(superDotsGumMaterial, 1, 1, 1);
+    //   cubeItem.castShadow = true;
+    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.position.y = Math.random() + 2;
+    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.rotation.x = Math.random();
+    //   cubeItem.rotation.y = Math.random();
+    //   cubeItem.rotation.z = Math.random();
+    //   this.scene.add(cubeItem);
+    //   this.physics.add.existing(cubeItem);
+    // }
 
     // const checkerPatternGreenMaterial = checkerPatternGreen(
     //   createColor(0, 1, 1),
@@ -216,6 +233,26 @@ class World {
 
     // for (let i = 0; i < 8; i++) {
     //   const cubeItem = cube(checkerPatternGreenMaterial, 0.5, 0.5, 0.5);
+    //   cubeItem.castShadow = true;
+    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.position.y = Math.random() + 2;
+    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+    //   cubeItem.rotation.x = Math.random();
+    //   cubeItem.rotation.y = Math.random();
+    //   cubeItem.rotation.z = Math.random();
+    //   this.scene.add(cubeItem);
+    //   this.physics.add.existing(cubeItem);
+    // }
+
+    // bent plane
+
+    // const bentPlaneMaterial = bentPlane(
+    //   createColor(0, 1, 0),
+    //   envmap
+    // );
+
+    // for (let i = 0; i < 8; i++) {
+    //   const cubeItem = cube(bentPlaneMaterial, 1, 1, 0.9);
     //   cubeItem.castShadow = true;
     //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
     //   cubeItem.position.y = Math.random() + 2;
