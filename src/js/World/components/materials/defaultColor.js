@@ -7,8 +7,8 @@ const defaultColor = (color, envmap) => {
     envMap: envmap.texture,
     envMapIntensity: 1,
     color: color,
-    roughness: 1,
-    metalness: 0.4,
+    roughness: 0,
+    metalness: 0,
   } 
   const material = new MeshStandardMaterial(parameters);
   return material;
