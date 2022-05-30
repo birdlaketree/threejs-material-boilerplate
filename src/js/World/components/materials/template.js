@@ -1,17 +1,17 @@
 import { Vector2, MeshPhysicalMaterial } from 'three';
 import { textureHandler } from '../../system/textureHandler';
 
-const colorMapUrl   = new URL('/assets/public/textures/deformed-plane/deform-plane_color.png', import.meta.url);
-const normalMapUrl     = new URL('/assets/public/textures/deformed-plane/deform-plane_2_normal.png', import.meta.url);
-const roughnessMapUrl  = new URL('/assets/public/textures/deformed-plane/uniform-noise_color_3.png', import.meta.url);
-// const metalnessMapUrl  = new URL('/assets/public/textures/deformed-plane/uniform-noise_color_3.png', import.meta.url);
-// const aoMapUrl  = new URL('/assets/public/textures/deformed-plane/uniform-noise_color_3.png', import.meta.url);
-// const alphaMapUrl  = new URL('/assets/public/textures/deformed-plane/uniform-noise_color_3.png', import.meta.url);
-// const bumpMapUrl  = new URL('/assets/public/textures/deformed-plane/uniform-noise_color_3.png', import.meta.url);
-// const emissiveMapUrl  = new URL('/assets/public/textures/deformed-plane/uniform-noise_color_3.png', import.meta.url);
-// const displacementMapUrl  = new URL('/assets/public/textures/deformed-plane/uniform-noise_color_3.png', import.meta.url);
-// const clearcoatMapUrl  = new URL('/assets/public/textures/deformed-plane/uniform-noise_color_3.png', import.meta.url);
-// const transmissionMapUrl  = new URL('/assets/public/textures/deformed-plane/uniform-noise_color_3.png', import.meta.url);
+const colorMapUrl            = new URL('/assets/public/textures/bent-plane/deform-plane_color.png', import.meta.url);
+const normalMapUrl           = new URL('/assets/public/textures/bent-plane/deform-plane_2_normal.png', import.meta.url);
+const roughnessMapUrl        = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
+// const metalnessMapUrl     = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
+// const aoMapUrl            = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
+// const alphaMapUrl         = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
+// const bumpMapUrl          = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
+// const emissiveMapUrl      = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
+// const displacementMapUrl  = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
+// const clearcoatMapUrl     = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
+// const transmissionMapUrl  = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
 
 const template = (color, envmap) => {
   const repeat = 1;
