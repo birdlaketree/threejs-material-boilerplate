@@ -121,7 +121,7 @@ class World {
       envmap
     );
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 2; i++) {
       const cubeItem = cube(whiteMaterial, Math.random() * 1 + 0.2, Math.random() * 1.6 + 0.2, Math.random() * 1 + 0.2);
       cubeItem.castShadow = true;
       cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
@@ -156,25 +156,25 @@ class World {
       cubeItem.body.setBounciness(0.96);
     }
 
-    // // blue cubes
+    // blue cubes
 
-    // const blueMaterial = defaultColorWithNoise(
-    //   createColor(0.6, 1, 0.5),
-    //   envmap
-    // );
+    const blueMaterial = defaultColorWithNoise(
+      createColor(0.6, 1, 0.5),
+      envmap
+    );
 
-    // for (let i = 0; i < 4; i++) {
-    //   const cubeItem = cube(blueMaterial, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
-    //   cubeItem.castShadow = true;
-    //   cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
-    //   cubeItem.position.y = Math.random() + 2;
-    //   cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
-    //   cubeItem.rotation.x = Math.random();
-    //   cubeItem.rotation.y = Math.random();
-    //   cubeItem.rotation.z = Math.random();
-    //   this.scene.add(cubeItem);
-    //   this.physics.add.existing(cubeItem);
-    // }
+    for (let i = 0; i < 2; i++) {
+      const cubeItem = cube(blueMaterial, Math.random() * 1 + 0.2, Math.random() * 1.4 + 0.2, Math.random() * 1 + 0.2);
+      cubeItem.castShadow = true;
+      cubeItem.position.x = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.position.y = Math.random() + 2;
+      cubeItem.position.z = Math.random() * spreadWidth - spreadWidth/2;
+      cubeItem.rotation.x = Math.random();
+      cubeItem.rotation.y = Math.random();
+      cubeItem.rotation.z = Math.random();
+      this.scene.add(cubeItem);
+      this.physics.add.existing(cubeItem);
+    }
 
     // frosted cubes
 
