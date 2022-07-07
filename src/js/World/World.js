@@ -1,4 +1,5 @@
-import { Color, Group } from "three";
+import { Color, Group, PlaneGeometry, Mesh } from "three";
+import { Math as TMath } from "three";
 import { createColor } from "./utils/createColor.js";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { Loop } from './system/Loop.js';
@@ -24,6 +25,8 @@ import { defaultColorWithNoise } from "./components/materials/defaultColorWithNo
 // import { steelWithSchratches } from "./components/materials/steelWithScratches.js";
 // import { superDotsGum } from "./components/materials/superDotsGum.js";
 // import { checkerPatternGreen } from "./components/materials/checkerPatternGreen.js";
+
+import { scaleTest } from "./components/materials/scaleTest.js";
 
 const hdrURL = new URL('/assets/copyrighted/hdr/studio_small_08_1k.hdr', import.meta.url);
 
@@ -96,6 +99,16 @@ class World {
     leftHandController.body.setCollisionFlags(1);
     leftHandController.body.setBounciness(0.9);
     this.vrControls.addAssetToLeftHand(leftHandController);
+
+    // plane
+
+    const planeMaterial = scaleTest(0xfffceb, envmap, 0.84);
+    const planeGeom = new PlaneGeometry(2, 2, 4, 4);
+    const plane = new Mesh( planeGeom, planeMaterial );
+    plane.rotation.y = TMath.degToRad(45);
+    plane.position.x = 0;
+    plane.position.y = 2;
+    this.scene.add(plane);
 
     // spheres
 
