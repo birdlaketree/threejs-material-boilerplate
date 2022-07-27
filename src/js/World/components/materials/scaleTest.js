@@ -1,5 +1,6 @@
-import { Vector2, MeshPhysicalMaterial } from 'three';
+import { Vector2, MeshPhysicalMaterial, CanvasTexture } from 'three';
 import { textureHandler } from '../../system/textureHandler';
+import { RandomDots } from '../textures/RandomDots';
 
 const colorMapUrl            = new URL('/assets/public/textures/uv_grid_opengl.jpg', import.meta.url);
 const normalMapUrl           = new URL('/assets/public/textures/bent-plane/deform-plane_2_normal.png', import.meta.url);
@@ -13,12 +14,13 @@ const roughnessMapUrl        = new URL('/assets/public/textures/bent-plane/unifo
 // const clearcoatMapUrl     = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
 // const transmissionMapUrl  = new URL('/assets/public/textures/bent-plane/uniform-noise_color_3.png', import.meta.url);
 
-const scaleTest = (color, envmap) => {
-  const repeatX = 0.75;
-  const repeatY = 0.25;
-  const colorMap = textureHandler(colorMapUrl, repeatX, repeatY);
-  const normalMap = textureHandler(normalMapUrl, repeatX, repeatY);
-  const roughnessMap = textureHandler(roughnessMapUrl, repeatX, repeatY);
+const scaleTest = (color, envmap, envMapIntensity) => {
+  const repeatX = 1;
+  const repeatY = 1;
+
+  // const colorMap = textureHandler(colorMapUrl, repeatX, repeatY);
+  // const normalMap = textureHandler(normalMapUrl, repeatX, repeatY);
+  // const roughnessMap = textureHandler(roughnessMapUrl, repeatX, repeatY);
   // const metalnessMap = textureHandler(metalnessMapUrl, repeat);
   // const aoMap = textureHandler(aoMapUrl, repeat);
   // const alphaMap = textureHandler(alphaMapUrl, repeat);
@@ -28,17 +30,25 @@ const scaleTest = (color, envmap) => {
   // const clearcoatMap = textureHandler(clearcoatMapUrl, repeat);
   // const transmissionMap = textureHandler(transmissionMapUrl, repeat);
 
+  // const colorMap = new CanvasTexture(new RandomDots());
+  // const metalnessMap = new CanvasTexture(new RandomDots());
+  // const roughnessMap = new CanvasTexture(new RandomDots());
+  const maps = new RandomDots();
+  const colorMap = new CanvasTexture(maps.colorMap);
+  const roughnessMap = new CanvasTexture(maps.roughnessMap);
+  const metalnessMap = new CanvasTexture(maps.metalnessMap);
+
   const parameters = {
     // STANDARD
 
     envMap: envmap.texture,
-    envMapIntensity: 1,
+    envMapIntensity: envMapIntensity,
 
-    color: color,
+    // color: color,
     map: colorMap,
 
-    // roughness: 0.56,
-    // roughnessMap: roughnessMap,
+    roughness: 1,
+    roughnessMap: roughnessMap,
 
     // normalMap: normalMap,
 		// normalScale: new Vector2(1, 1),
@@ -56,8 +66,8 @@ const scaleTest = (color, envmap) => {
     // displacementScale
     // displacementBias
 
-    // metalness: 0,
-    // metalnessMap: metalnessMap,
+    metalness: 1,
+    metalnessMap: metalnessMap,
 
     // alphaMap: alphaMap,
 

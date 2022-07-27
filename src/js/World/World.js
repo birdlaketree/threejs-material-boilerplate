@@ -47,7 +47,7 @@ class World {
   }
 
   ammoStart() {
-    console.log('ammoStart.a16');
+    console.log('ammoStart.a18');
     this.physics = new AmmoPhysics(this.scene);
     // physics.debug.enable(true);
     this.loop.setPhysics(this.physics);
@@ -102,12 +102,14 @@ class World {
 
     // plane
 
-    const planeMaterial = scaleTest(0xfffceb, envmap, 0.84);
+    const planeMaterial = scaleTest(0x000000, envmap, 0.84);
     const planeGeom = new PlaneGeometry(2, 2, 4, 4);
     const plane = new Mesh( planeGeom, planeMaterial );
     plane.rotation.y = TMath.degToRad(45);
-    plane.position.x = 0;
+    plane.rotation.x = TMath.degToRad(-30);
+    plane.position.x = -2;
     plane.position.y = 2;
+    plane.position.z = -2;
     this.scene.add(plane);
 
     // spheres
